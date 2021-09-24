@@ -1,0 +1,39 @@
+<html>
+<head>
+<meta http-equiv="Refresh" content="3; url=/Users/williamjonsonrobars/Desktop/voice/voice131/i99.html">
+<body onLoad="setTimeout('window.close()',11000)">
+<h1>少々お待ちください??????????</h1>
+<div id="log"></div>
+<script>
+const totalTime = 10000;
+const oldTime = Date.now();
+
+const timeId = setInterval(() => {
+  const currentTime = Date.now();
+
+  // 差分を求める
+  const diff = currentTime - oldTime;
+
+  const diffSec = totalTime - diff;
+
+  //ミリ秒を整数に変換
+  const remainSec = Math.ceil(diffSec / 1000);
+
+  let text = `システムが自動的に終了するまで残り${remainSec}秒です`;
+
+  // 0秒以下になったら
+  if (diffSec <= 0) {
+    clearInterval(timeId);
+
+    // タイマー終了の文言を表示する
+    text = "Thank you very much";
+  }
+
+  // 画面に表示する
+  document.querySelector('#log').innerHTML = text;
+})
+</script>
+</body>
+</head>
+</html>
+

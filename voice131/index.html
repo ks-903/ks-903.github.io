@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>Web voice</title>
+</head>
+<body bgcolor="skyblue" text="blue" >
+<div>
+<p class="tile": center;>voice test</p>
+
+
+
+<h2 style="text-align: center; size="14px""><button id="start-btn">start</button>
+<button id="stop-btn">stop</button>
+<div id="result-div"></div>
+
+<script>
+  const startBtn = document.querySelector('#start-btn');
+  const stopBtn = document.querySelector('#stop-btn');
+  const resultDiv = document.querySelector('#result-div');
+
+  SpeechRecognition = webkitSpeechRecognition || SpeechRecognition;
+  let recognition = new SpeechRecognition();
+let synth = new SpeechSynthesisUtterance();
+   synth.pitchSetting = 0.6;  // ピッチ 0(min) - 2(max), default 1.0
+   synth.volumeSetting = 0.5; // 音量 0(min) - 1(max), default 1.0
+synth.rateSetting = 0.4; // 話す速さ 0.1(min) - 10(max), default 1.0
+   // 設定項目終わり
+
+
+
+  recognition.lang = 'ja-JP';
+  recognition.interimResults = true;
+  recognition.continuous = true;
+
+  let finalTranscript = ''
+  recognition.onresult = (event) => {
+    let interimTranscript = ''; // 暫定(灰色)の認識結果
+    for (let i = event.resultIndex; i < event.results.length; i++) {
+      let transcript = event.results[i][0].transcript;
+      if (event.results[i].isFinal) {
+        finalTranscript += transcript ;
+
+
+      } else {
+        interimTranscript = transcript;
+      }
+    }
+    resultDiv.innerHTML = // 確定した(黒の)認識結果
+
+
+        finalTranscript + '<i style="color:#ddd;">' + interimTranscript + '</i>'  ;
+synth.text  =finalTranscript;
+
+
+
+if (interimTranscript=="クリア") {
+
+  setTimeout(function(){
+location.reload();
+},1000);
+
+  resultDiv.innerHTML = synth.text = "ではリセットします";
+
+speechSynthesis.speak(synth);
+
+}
+let u77 = interimTranscript ;
+  if ((u77 == "今日は KS")||(u77 =='こんばんは KS')||(u77 =='おはよん KS')||(u77 =='おはようございます KS')||(u77 =='おはよう KS')||(u77 =='お疲れ KS')) {
+
+    var a=["01こんにちはユーザー様","02私は音声アシストks-903ですこんにちは","03なんで小ご用件は?","04やはり","きっぱりと諦めることも大事です","05時間とともに忘れます","06私にはアドバイスはできません","07神のみが知るです","08できるといいですね"];
+    var x;
+    x=Math.floor(Math.random()*8);
+
+  resultDiv.innerHTML=  synth.text= a[x];
+  speechSynthesis.speak(synth);
+}
+}
+  startBtn.onclick = () => {
+
+
+    initSynth = new SpeechSynthesisUtterance("ksー９０３チャットボイス、バージョン０が起動されました");
+   initSynth.lang = "ja-JP";
+   initSynth.rate   = 0.9;       // 速さ
+   initSynth.pitch  = 0.5;       // 高さ
+   initSynth.volume = 0.6;       // 音量
+  speechSynthesis.speak(initSynth);
+  setTimeout(function(){
+recognition.start();
+},5600);
+
+  }
+  stopBtn.onclick = () => {
+    recognition.stop();
+    speechSynthesis.speak(synth);
+
+
+
+
+  }
+
+</script>
+
+
+</script>
+</body>
+</html>

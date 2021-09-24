@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>Web voice</title>
+</head>
+<body  text="red" >
+<!--<style>
+body {
+  background-image: url("1.gif");
+  background-size: cover;
+}
+</style>-->
+<audio src="/Users/williamjonsonrobars/Desktop/voice/voice131/s1.m4p" loop autoplay ></audio>
+<div>
+<!--<p class="tile": center;>voice test</p>!--> 
+ 
+    
+
+<h2 style="text-align: center; size="14px"">チャットボイスvr.1.0正規品</h2>
+</div>
+</div>
+<div id="content" style="text-align: center;"></div>
+
+<script>
+
+const speech = new webkitSpeechRecognition();
+speech.lang = 'ja-JP';
+
+const start_btn = document.getElementById('start_btn');
+const end_btn   = document.getElementById('end_btn');
+const content   = document.getElementById('content');
+
+window.addEventListener('DOMContentLoaded', function () {
+// 音声認識を開始する
+speech.start();
+});
+
+//音声認識を自動文字起こし機能
+speech.onresult = function (e) {
+    speech.stop();
+   if (e.results[0].isFinal) {
+      var autotext = e.results[0] [0].transcript
+      content.innerHTML += '<div>' + autotext + '</div>';
+}
+}
+
+speech.onend = () =>
+{
+speech.start()
+};
+
+
+</script>
+</body>
+</html>
